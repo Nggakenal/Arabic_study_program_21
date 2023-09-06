@@ -8,110 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://codepen.io/simeydotme/pen/WNawZXp/be618208e9e17abe52c0fc63379e5f88.css"> 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500&amp;display=swap">
-  <link rel="stylesheet" href="Index.css"> 
-  <javascript>
-    const d = document;
-const $q = d.querySelectorAll.bind(d);
-const $g = d.querySelector.bind(d);
-const $prev = $g(".prev");
-const $next = $g(".next");
-const $list = $g(".carousel__list");
-let auto;
-let pauser;
-
-const getActiveIndex = () => {
-    const $active = $g("[data-active]");
-    return getSlideIndex($active);
-}
-
-const getSlideIndex = ($slide) => {
-    return [...$q(".carousel__item")].indexOf( $slide );
-}
-
-const prevSlide = () => {
-    const index = getActiveIndex();
-    const $slides = $q(".carousel__item");
-    const $last = $slides[$slides.length-1];
-    $last.remove();
-    $list.prepend($last);
-    activateSlide( $q(".carousel__item")[index] );
-}
-const nextSlide = () => {
-    const index = getActiveIndex();
-    const $slides = $q(".carousel__item");
-    const $first = $slides[0];
-    $first.remove();
-    $list.append($first);
-    activateSlide( $q(".carousel__item")[index] );
-}
-
-const chooseSlide = (e) => {
-    const max = (window.matchMedia("screen and ( max-width: 600px)").matches) ? 5 : 8;
-    const $slide = e.target.closest( ".carousel__item" );
-    const index = getSlideIndex( $slide );
-    if ( index < 3 || index > max ) return;
-    if ( index === max ) nextSlide();
-    if ( index === 3 ) prevSlide();
-    activateSlide($slide);
-}
-
-const activateSlide = ($slide) => {
-    if (!$slide) return;
-    const $slides = $q(".carousel__item");
-    $slides.forEach(el => el.removeAttribute('data-active'));
-    $slide.setAttribute( 'data-active', true );
-    $slide.focus();
-}
-
-const autoSlide = () => {
-    nextSlide();
-}
-
-const pauseAuto = () => {
-    clearInterval( auto );
-    clearTimeout( pauser );
-}
-
-const handleNextClick = (e) => {
-    pauseAuto();
-    nextSlide(e);
-}
-
-const handlePrevClick = (e) => {
-    pauseAuto();
-    prevSlide(e);
-}
-
-const handleSlideClick = (e) => {
-    pauseAuto();
-    chooseSlide(e);
-}
-
-const handleSlideKey = (e) => {
-    switch(e.keyCode) {
-        case 37:
-        case 65:
-            handlePrevClick();
-            break;
-        case 39:
-        case 68:
-            handleNextClick();
-            break;
-    }
-}
-
-const startAuto = () => {
-    auto = setInterval( autoSlide, 3000 );
-}
-
-startAuto();
-
-$next.addEventListener( "click", handleNextClick );
-$prev.addEventListener( "click", handlePrevClick );
-// $list.addEventListener( "click", handleSlideClick );
-$list.addEventListener( "focusin", handleSlideClick );
-$list.addEventListener( "keyup", handleSlideKey );
-  </javascript>
+  <link rel="stylesheet" href="Index.css">
  </head> 
  <body> <!-- partial:index.partial.html --> 
   <main id="app"> 
@@ -250,6 +147,6 @@ $list.addEventListener( "keyup", handleSlideKey );
    </svg> </a> <a class="social-icon github" href="https://github.com/simeydotme"> 
    <svg viewbox="0 0 24 24"> <path stroke="none" d="M0 0h24v24H0z" fill="none"></path> <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path> 
    </svg> </a> <!-- partial --> 
-  <script src="./script.js"></script> 
+  <script src="script.js"></script> 
  </body>
   </html>
